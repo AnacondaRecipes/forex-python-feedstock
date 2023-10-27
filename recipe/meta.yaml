@@ -1,0 +1,64 @@
+{% set name = "forex-python" %}
+{% set version = "1.8" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/MicroPyramid/forex-python/archive/v{{ version }}.tar.gz
+  sha256: 062adc6380b9ac49168a2b89faba2fa60fa5806175da61230b121f139c9c4ab5
+
+build:
+  script: {{ PYTHON }} -m pip install --no-deps --no-build-isolation . -vv
+  number: 0
+
+requirements:
+  host:
+    - python
+    - pip
+    - wheel
+    - setuptools
+
+  run:
+    - python
+    - requests
+    - simplejson
+
+test:
+  source_files:
+    - tests
+  requires:
+    - pip
+    - pytest
+    - requests
+  imports:
+    - forex_python
+  commands:
+    - pip check
+    #bitcoin test failing, see https://github.com/MicroPyramid/forex-python/issues/147#issuecomment-1782761297
+    - pytest tests/test.py
+  
+about:
+  home: https://github.com/MicroPyramid/forex-python
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: Forex Python is a Free Foreign exchange rates and currency conversion.
+  description: |
+    Free Foreign exchange rates, bitcoin prices and currency conversion, providing following features 
+    - List all currency rates. 
+    - BitCoin price for all curuncies.
+    - Converting amount to BitCoins.
+    - Get historical rates for any day since 1999.
+    - Conversion rate for one currency(ex; USD to INR).
+    - Convert amount from one currency to other.(‘USD 10$’ to INR)
+    - Currency Symbols
+    - Currency names
+
+  dev_url: https://github.com/MicroPyramid/forex-python
+  doc_url: https://forex-python.readthedocs.io/
+
+extra:
+  recipe-maintainers:
+    - markw77
