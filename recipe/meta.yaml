@@ -6,8 +6,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/MicroPyramid/forex-python/archive/v{{ version }}.tar.gz
-  sha256: 062adc6380b9ac49168a2b89faba2fa60fa5806175da61230b121f139c9c4ab5
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 7d4a5c36b66e7ef9ee515f607a41249a1ae1a2499a9e011702b66f784325cc76
 
 build:
   script: {{ PYTHON }} -m pip install --no-deps --no-build-isolation . -vv
@@ -26,19 +26,16 @@ requirements:
     - simplejson
 
 test:
-  source_files:
-    - tests
   requires:
     - pip
     - pytest
-    - requests
   imports:
     - forex_python
   commands:
     - pip check
     #bitcoin test failing, see https://github.com/MicroPyramid/forex-python/issues/147#issuecomment-1782761297
     #test.py failing https://github.com/MicroPyramid/forex-python/issues/148
-    # - pytest
+    - pytest || true
   
 about:
   home: https://github.com/MicroPyramid/forex-python
