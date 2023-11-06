@@ -1,13 +1,13 @@
 {% set name = "forex-python" %}
-{% set version = "1.8" %}
+{% set version = "1.6" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/MicroPyramid/forex-python/archive/v{{ version }}.tar.gz
-  sha256: 062adc6380b9ac49168a2b89faba2fa60fa5806175da61230b121f139c9c4ab5
+  url: https://github.com/MicroPyramid/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
+  sha256: 9e1442cc14e61de3ebeadfba85ba5ef0c33db88b9f93537550c56baf1b3298d0
 
 build:
   script: {{ PYTHON }} -m pip install --no-deps --no-build-isolation . -vv
@@ -36,9 +36,7 @@ test:
     - forex_python
   commands:
     - pip check
-    #bitcoin test failing, see https://github.com/MicroPyramid/forex-python/issues/147#issuecomment-1782761297
-    #test.py failing https://github.com/MicroPyramid/forex-python/issues/148
-    # - pytest
+    - pytest
   
 about:
   home: https://github.com/MicroPyramid/forex-python
